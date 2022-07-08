@@ -10,11 +10,10 @@
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            Bienvenue {{ app.user.userIdentifier }}, 
-        </div>
+    {% block javascripts %}
+    {% if app.user != null %}<script type="text/javascript">document.location.href="/ConsultationPlanning"</script>
 {% endif %}
+    {% endblock %}
     <div id = "conn-form">
     <div id = "container">
     <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
