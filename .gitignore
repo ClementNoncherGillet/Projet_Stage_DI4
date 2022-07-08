@@ -24,7 +24,6 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 
 .php-version
-/var/cache/
 /var/log/
 /var/cache/dev/
 
@@ -33,13 +32,4 @@ yarn-error.log
 *.php-version
 .php-version
 *.sqlite
-var/cache/dev/App_KernelDevDebugContainer.php
-var/cache/dev/App_KernelDevDebugContainer.php.meta
-var/cache/dev/App_KernelDevDebugContainer.preload.php
-var/cache/dev/App_KernelDevDebugContainer.xml
-var/cache/dev/App_KernelDevDebugContainer.xml.meta
-var/cache/dev/App_KernelDevDebugContainerCompiler.log
-var/cache/dev/profiler/index.csv
-var/cache/dev/url_generating_routes.php
-var/cache/dev/url_matching_routes.php
-var/log/dev.log
+

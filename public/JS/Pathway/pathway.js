@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     MATERIAL_RESOURCE_CATEGORIES = JSON.parse(
         document.getElementById("json-material-resource-categories").value
     );
-
 })
 
 /**
@@ -80,26 +79,30 @@ function handleAddActivity() {
     inputName.setAttribute('onchange', 'disableSubmit()')
     //inputName.setAttribute('name', 'name-activity-'+SELECT_ID)
 
-    /*let inputDuration = document.createElement('input')
+    let inputDuration = document.createElement('input')
     inputDuration.setAttribute('class', 'input-duration')
     inputDuration.setAttribute('placeholder', 'Durée (min)')
     inputDuration.setAttribute('type', 'number')
     inputDuration.setAttribute('min', '0')
-    inputDuration.setAttribute('onchange', 'disableSubmit()')*/
-    //inputDuration.setAttribute('name', 'duration-activity-'+SELECT_ID)
+    inputDuration.setAttribute('onchange', 'disableSubmit()')
+    inputDuration.setAttribute('id', 'input-activity-duration-'+SELECT_ID)
 
-    let imgDelete = new Image();
-    imgDelete.src = 'img/delete.svg'
-    imgDelete.setAttribute('id','img-'+SELECT_ID)
-    imgDelete.setAttribute('onclick', 'deleteSelect(this.id)')
+    //inputDuration.setAttribute('name', 'duration-activity-'+SELECT_ID)
 
     let imgEdit = new Image();
     imgEdit.src = 'img/edit.svg'
     imgEdit.setAttribute('id','img-'+SELECT_ID)
     imgEdit.setAttribute('onclick', 'editSelect(this.id)')
+    imgEdit.setAttribute('title', 'Éditer les ressources de l\'activité')
+
+    let imgDelete = new Image();
+    imgDelete.src = 'img/delete.svg'
+    imgDelete.setAttribute('id','img-'+SELECT_ID)
+    imgDelete.setAttribute('onclick', 'deleteSelect(this.id)')
+    imgDelete.setAttribute('title', 'Supprimer l\'activité du parcours')
 
     div.appendChild(inputName)
-    //div.appendChild(inputDuration)
+    div.appendChild(inputDuration)
     div.appendChild(imgEdit)
     div.appendChild(imgDelete)
 
@@ -113,13 +116,13 @@ function handleAddActivity() {
 
     let divcontainer = document.createElement('div')
     //divcontainer.setAttribute('class', "title-container")
-    divcontainer.setAttribute('class', 'flex-row')
+    //divcontainer.setAttribute('class', 'flex-row')
     divcontainer.style.justifyContent = "center"
     let pTitle = document.createElement("p")
     pTitle.innerHTML = 'Activité : '
     pTitle.setAttribute('class', 'label')
     //let divclass = divcontainer.getAttribute('class')  //ajouter la classe 'div-activity-(id)' en plusde activity-field a div
-    divcontainer.setAttribute('class', 'div-activity-'+SELECT_ID)
+    divcontainer.setAttribute('id', 'div-activity-'+SELECT_ID)
     divcontainer.appendChild(pTitle)
     divcontainer.appendChild(div)
     divcontainer.appendChild(createDivEdit()) /* div edit  */
@@ -149,7 +152,7 @@ function deleteSelect(id) {
     // Pour cela on recupere que le dernier caracetere de l'id de l'img : (img-1)
     id = id[id.length - 1] 
     // On peut donc recuperer la div
-    let divToDelete = document.getElementsByClassName('div-activity-'+id)[0]
+    let divToDelete = document.getElementById('div-activity-'+id)
     // puis la supprimer
     let divAddActivity = document.getElementsByClassName('activities-container')[0]
     divAddActivity.removeChild(divToDelete)
@@ -196,8 +199,6 @@ function editSelect(id) {
  * Permet de verifier les champs et de leur donner un 'name' pour la requete
  */
 function verifyChanges() {
-    console.log('Appel de la fonction verifyChanges')
-
     let formOk = true
     // D'abord on recupere la div qui contient toutes les activity
     let activitiesContainer = document.getElementsByClassName('activities-container')[0]
@@ -210,7 +211,9 @@ function verifyChanges() {
         // On ne considere que les activités qui n'ont pas été supprimées
         if (RESOURCES_BY_ACTIVITIES[i].available === true) {
             inputName  = document.getElementById('input-activity-name-'+i)
+            inputDuration  = document.getElementById('input-activity-duration-'+i)
             RESOURCES_BY_ACTIVITIES[i].activityname = inputName.value
+            RESOURCES_BY_ACTIVITIES[i].activityduration = inputDuration.value
 
             indexActivityAvailable = indexActivityAvailable + 1
         }
@@ -238,7 +241,6 @@ function verifyChanges() {
     }
 */
 
-    console.log(JSON.stringify(RESOURCES_BY_ACTIVITIES))
     document.getElementById('json-resources-by-activities').value = JSON.stringify(RESOURCES_BY_ACTIVITIES);
 
     if (formOk) {
@@ -342,14 +344,14 @@ function addResources(id) {
     if (RESOURCES_BY_ACTIVITIES[id].btnHM == 'human') {
         let resourceNb = document.getElementById('resource-nb-'+id).value
         let resourceId = document.getElementById('select-resources-'+id).value //pas utilisé pour l'instant
-    
+
         let resourceName ='';
         for (let indexHRC = 0; indexHRC < HUMAN_RESOURCE_CATEGORIES.length; indexHRC++) {
             if (HUMAN_RESOURCE_CATEGORIES[indexHRC].id == resourceId) {
                 resourceName = HUMAN_RESOURCE_CATEGORIES[indexHRC].categoryname
             }
         }
-        
+
         RESOURCES_BY_ACTIVITIES[id].humanResourceCategories.push(new Object())
         let len = RESOURCES_BY_ACTIVITIES[id].humanResourceCategories.length
         RESOURCES_BY_ACTIVITIES[id].humanResourceCategories[len-1].id = resourceId
@@ -362,14 +364,14 @@ function addResources(id) {
 
         let resourceNb = document.getElementById('resource-nb-'+id).value
         let resourceId = document.getElementById('select-resources-'+id).value //pas utilisé pour l'instant
-    
+
         let resourceName ='';
         for (let indexMRC = 0; indexMRC < MATERIAL_RESOURCE_CATEGORIES.length; indexMRC++) {
-            if (HUMAN_RESOURCE_CATEGORIES[indexMRC].id == resourceId) {
+            if (MATERIAL_RESOURCE_CATEGORIES[indexMRC].id == resourceId) {
                 resourceName = MATERIAL_RESOURCE_CATEGORIES[indexMRC].categoryname
             }
         }
-        
+
         RESOURCES_BY_ACTIVITIES[id].materialResourceCategories.push(new Object())
         let len = RESOURCES_BY_ACTIVITIES[id].materialResourceCategories.length
         RESOURCES_BY_ACTIVITIES[id].materialResourceCategories[len-1].id = resourceId
@@ -384,13 +386,14 @@ function addResources(id) {
 
 /**
  * Remplit la liste des ressources humaines 
- * @param {*} id : id de l'activité dans laquelle on veut ajouter des ressources
+ * @param {id de l'activité dans laquelle on veut ajouter des ressources} id 
  */
 function fillHRCList(id) {
 
     
     // On recupere la liste dans laquelle on va ajouter notre ressource
     ul = document.getElementById('list-resources-'+id)
+    ul.style.listStyle='none'
     ul.innerHTML = ''
 
     let len = RESOURCES_BY_ACTIVITIES[id].humanResourceCategories.length
@@ -399,12 +402,26 @@ function fillHRCList(id) {
         for (let indexHRC = 0 ; indexHRC < len ; indexHRC++) {
             // On crée le li qui va stocker la ressource (visuellement) 
             var li = document.createElement('li');
-    
             let resourceNb = RESOURCES_BY_ACTIVITIES[id].humanResourceCategories[indexHRC].nb 
             let resourceName = RESOURCES_BY_ACTIVITIES[id].humanResourceCategories[indexHRC].name
             li.innerText = resourceName +' ('+resourceNb+')'
         
-            ul.appendChild(li)
+
+            let imgDelete = new Image();
+            imgDelete.src = 'img/delete.svg'
+            imgDelete.setAttribute('onclick', 'deleteResource(this.id)')
+            imgDelete.setAttribute('title', 'Supprimer la ressource')
+            imgDelete.style.width='20px'
+            imgDelete.style.marginRight = '10%'
+            imgDelete.setAttribute('id', 'resource-h-'+id+'-'+indexHRC)
+
+            div = document.createElement('div')
+            div.appendChild(imgDelete)
+            div.appendChild(li)
+            div.style.display = 'flex'
+            div.style.alignItems = 'center'
+
+            ul.appendChild(div)
         }
     } else {
         var li = document.createElement('li');
@@ -418,7 +435,7 @@ function fillHRCList(id) {
 
 /**
  * Remplit la liste des ressources humaines 
- * @param {*} id : id de l'activité dans laquelle on veut ajouter des ressources
+ * @param {id de l'activité dans laquelle on veut ajouter des ressources} id 
  */
 function fillMRCList(id) {
     
@@ -437,7 +454,21 @@ function fillMRCList(id) {
             let resourceName = RESOURCES_BY_ACTIVITIES[id].materialResourceCategories[indexMRC].name
             li.innerText = resourceName +' ('+resourceNb+')'
         
-            ul.appendChild(li)
+            let imgDelete = new Image();
+            imgDelete.src = 'img/delete.svg'
+            imgDelete.setAttribute('onclick', 'deleteResource(this.id)')
+            imgDelete.setAttribute('title', 'Supprimer la ressource')
+            imgDelete.style.width='20px'
+            imgDelete.style.marginRight = '10%'
+            imgDelete.setAttribute('id', 'resource-m-'+id+'-'+indexMRC)
+
+            div = document.createElement('div')
+            div.appendChild(imgDelete)
+            div.appendChild(li)
+            div.style.display = 'flex'
+            div.style.alignItems = 'center'
+
+            ul.appendChild(div)
         }
     } else {
         var li = document.createElement('li');
@@ -446,6 +477,10 @@ function fillMRCList(id) {
     }
 }
 
+/**
+ * Gestion du clic sur le bouton 'humaines' dans les ressources d'une activité
+ * @param {id de l'activité donc on veut afficher les ressources humaines} id 
+ */
 function handleHumanButton(id) {
     // recuperation de l'id
     id = id[id.length - 1] 
@@ -478,6 +513,10 @@ function handleHumanButton(id) {
 }
 
 
+/**
+ * Gestion du clic sur le bouton 'materielle' dans les ressources d'une activité
+ * @param {id de l'activité donc on veut afficher les ressources materielles} id 
+ */
 function handleMaterialButton(id) {
     // recuperation de l'id
     id = id[id.length - 1] 
@@ -512,7 +551,7 @@ function handleMaterialButton(id) {
 
 /**
  * Supprime tous les options d'un select
- * @param {*} selectElement 
+ * @param {L'élément select dont on veut supprimer les options} selectElement 
  * 
  * Source: https://prograide.com/pregunta/37784/comment-effacer-toutes-les-options-dune-liste-deroulante
  */
@@ -525,3 +564,26 @@ function removeOptions(selectElement) {
 
 }
 
+/**
+ * Permet de supprimer une ressource d'une activité
+ * @param {*} id 
+ */
+function deleteResource(id) {
+
+    idSplitted = id.split('-');
+    typeRessource = idSplitted[idSplitted.length - 3]
+    idActivity = idSplitted[idSplitted.length - 2]
+    idRessource = idSplitted[idSplitted.length - 1]
+
+
+    //console.log(RESOURCES_BY_ACTIVITIES)
+    if (typeRessource === 'h') {
+        RESOURCES_BY_ACTIVITIES[idActivity].humanResourceCategories.splice(idRessource, 1)
+        fillHRCList(idActivity);
+    } else {
+        RESOURCES_BY_ACTIVITIES[idActivity].materialResourceCategories.splice(idRessource, 1)
+        fillMRCList(idActivity);
+    }
+    //console.log(RESOURCES_BY_ACTIVITIES)
+
+}
