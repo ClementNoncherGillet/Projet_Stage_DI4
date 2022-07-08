@@ -1526,10 +1526,14 @@ $context["voter_detail"], "vote", [], "array", false, false, false, 418), twig_c
         </div>
     {% endif %}
 {% endblock %}
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 ", "@Security/Collector/security.html.twig", "C:\\Users\\Clement\\Desktop\\Projet Stage DI4\\Projet_Stage_DI4\\vendor\\symfony\\security-bundle\\Resources\\views\\Collector\\security.html.twig");
 =======
 ", "@Security/Collector/security.html.twig", "C:\\Users\\Clement\\Desktop\\New projet stage\\Projet_Stage_DI4\\vendor\\symfony\\security-bundle\\Resources\\views\\Collector\\security.html.twig");
 >>>>>>> Stashed changes
+=======
+", "@Security/Collector/security.html.twig", "C:\\Users\\mdpVirgile\\Documents\\GitHub\\Projet_Stage_DI4\\vendor\\symfony\\security-bundle\\Resources\\views\\Collector\\security.html.twig");
+>>>>>>> main
     }
 }

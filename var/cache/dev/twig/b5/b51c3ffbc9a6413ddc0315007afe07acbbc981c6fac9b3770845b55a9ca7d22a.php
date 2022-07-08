@@ -1349,10 +1349,14 @@ class __TwigTemplate_e6bef5a92e40073b6795b11bad1e93b23accb7e8d0880519740e7c9b13a
         <span>{{ route|default(controller) }}</span>
     {%- endif %}
 {% endmacro %}
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 ", "@WebProfiler/Collector/request.html.twig", "C:\\Users\\Clement\\Desktop\\Projet Stage DI4\\Projet_Stage_DI4\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\request.html.twig");
 =======
 ", "@WebProfiler/Collector/request.html.twig", "C:\\Users\\Clement\\Desktop\\New projet stage\\Projet_Stage_DI4\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\request.html.twig");
 >>>>>>> Stashed changes
+=======
+", "@WebProfiler/Collector/request.html.twig", "C:\\Users\\mdpVirgile\\Documents\\GitHub\\Projet_Stage_DI4\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\request.html.twig");
+>>>>>>> main
     }
 }

@@ -2080,10 +2080,14 @@ class __TwigTemplate_1bedec3881a3d94b75f39690cf7d8e40dc2c9503a78dcc0c75299807867
         {{ tree.form_tree_details(childName, childData, forms_by_hash) }}
     {% endfor %}
 {% endmacro %}
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 ", "@WebProfiler/Collector/form.html.twig", "C:\\Users\\Clement\\Desktop\\Projet Stage DI4\\Projet_Stage_DI4\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\form.html.twig");
 =======
 ", "@WebProfiler/Collector/form.html.twig", "C:\\Users\\Clement\\Desktop\\New projet stage\\Projet_Stage_DI4\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\form.html.twig");
 >>>>>>> Stashed changes
+=======
+", "@WebProfiler/Collector/form.html.twig", "C:\\Users\\mdpVirgile\\Documents\\GitHub\\Projet_Stage_DI4\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\form.html.twig");
+>>>>>>> main
     }
 }
