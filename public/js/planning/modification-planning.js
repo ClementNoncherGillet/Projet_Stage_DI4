@@ -701,7 +701,6 @@ function createCalendar(typeResource) {
 
     //permet d'ouvrir la modal pour la modification d'une activité lorsque l'on click dessus
     eventClick: function (event) {
-      console.log(event.event._def); 
       var id = event.event._def.publicId; //get the id of the event
       var activity = calendar.getEventById(id); //get the event with the id
       var start = activity.start; //get the start date of the event
@@ -758,6 +757,7 @@ function createCalendar(typeResource) {
       listeMaterialResources=JSON.parse(document.getElementById('material').value.replaceAll('3aZt3r',' '));
       //Ajoute la ressource allouée dans extendedProps -> human et material Resource afin d'afficher la ressource lorsque l'on clique sur l'event
       clearArray(modifyEvent._def.extendedProps.humanResources); 
+      clearArray(modifyEvent._def.extendedProps.materialResources)
       for(let i=0; i<modifyEvent._def.resourceIds.length; i++){
         if(modifyEvent._def.resourceIds[i]!='h-default' && modifyEvent._def.resourceIds[i]!='m-default' && modifyEvent._def.extendedProps.humanResources.includes(modifyEvent._def.resourceIds[i])==false){
           for(let j=0; j<listeHumanResources.length; j++){
@@ -775,7 +775,6 @@ function createCalendar(typeResource) {
           }
         }
       }
-      console.log(modifyEvent._def.extendedProps.materialResources); 
     },
   });
   switch (typeResource) {
