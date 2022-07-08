@@ -710,22 +710,25 @@ function createCalendar(typeResource) {
       if (humanResources != undefined) {
         for (var i = 0; i < humanResources.length; i++) {
           //for each human resource except the last one
-          if (humanResources[i].resourceName != undefined) {
+
+          if (humanResources[i].title != undefined) {
             //if the human resource exist
-            humanResourcesNames += humanResources[i].resourceName + "; "; //add the human resource name to the string with a ; and a space
+            humanResourcesNames += humanResources[i].title + "; "; //add the human resource name to the string with a ; and a space
           }
         }
       }
       //humanResourcesNames += humanResources[i].resourceName; //add the last human resource name to the string
+      
 
       var materialResources = activity.extendedProps.materialResources; //get the material resources of the event
+      
       var materialResourcesNames = ""; //create a string with the material resources names
       if (materialResources != undefined) {
         for (var i = 0; i < materialResources.length; i++) {
           //for each material resource except the last one
-          if (materialResources[i].resourceName != undefined) {
+          if (materialResources[i].title != undefined) {
             //if the material resource exist
-            materialResourcesNames += materialResources[i].resourceName + "; "; //add the material resource name to the string with a ; and a space
+            materialResourcesNames += materialResources[i].title + "; "; //add the material resource name to the string with a ; and a space
           }
         }
       }
@@ -750,6 +753,29 @@ function createCalendar(typeResource) {
       var clickModify = false;
       updateEventsAppointment(oldEvent, newDelay, clickModify);
       calendar.render();
+      
+      listeHumanResources=JSON.parse(document.getElementById('human').value.replaceAll('3aZt3r',' ')); 
+      listeMaterialResources=JSON.parse(document.getElementById('material').value.replaceAll('3aZt3r',' '));
+      //Ajoute la ressource allouée dans extendedProps -> human et material Resource afin d'afficher la ressource lorsque l'on clique sur l'event
+      clearArray(modifyEvent._def.extendedProps.humanResources); 
+      for(let i=0; i<modifyEvent._def.resourceIds.length; i++){
+        if(modifyEvent._def.resourceIds[i]!='h-default' && modifyEvent._def.resourceIds[i]!='m-default' && modifyEvent._def.extendedProps.humanResources.includes(modifyEvent._def.resourceIds[i])==false){
+          for(let j=0; j<listeHumanResources.length; j++){
+            if(listeHumanResources[j].id==modifyEvent._def.resourceIds[i]){
+              var humanArray={id:modifyEvent._def.resourceIds[i],title:listeHumanResources[j].title}
+              modifyEvent._def.extendedProps.humanResources.push(humanArray); 
+            }  
+          }
+          for(let j=0; j<listeMaterialResources.length;j++){
+            if(listeMaterialResources[j].id==modifyEvent._def.resourceIds[i]){
+              console.log('alo');
+              var materialArray={id:modifyEvent._def.resourceIds[i],title:listeMaterialResources[j].title}
+              modifyEvent._def.extendedProps.materialResources.push(materialArray); 
+            }  
+          }
+        }
+      }
+      console.log(modifyEvent._def.extendedProps.materialResources); 
     },
   });
   switch (typeResource) {
@@ -892,5 +918,11 @@ function RessourcesAllocated(event) {
     return "#ff0000";
   } else {
     return "#20c997";
+  }
+}
+
+function clearArray(array){
+  while (array.length) {
+    array.pop();
   }
 }
