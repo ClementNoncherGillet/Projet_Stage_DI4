@@ -19,12 +19,16 @@
 	<script src='js/fullcalendar-scheduler/lib/main.js'></script>
 	<script src="js/planning/consultation-planning.js"></script>
 	<script src="js/planning/utils-planning.js"></script>
+	    {% if app.user == null %}<script type="text/javascript">document.location.href="/login"</script>
+	{% endif %}
 
 	<div class="all-container" id="all">
 		<h1>Consultation du Planning</h1>
 		<div class="flex">
+		{% if app.user != null %}
 		{% if app.user.roles[1] != 'Visiteur' %}
 			<button class="btn-calendar-edit" onclick="modify({% if app.user %}{{app.user.getId()}}{% else %}1{% endif %})">Modifier le planning</button>
+			{% endif %}
 			{% endif %}
 			<select class="btn-calendar-edit" id="displayList" onchange="changePlanning()">
 				<option value="0" selected disabled>Changer l'affichage
