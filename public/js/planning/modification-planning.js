@@ -876,6 +876,7 @@ function createCalendar(typeResource) {
   listCurrentEvent.forEach((currentEvent) => {
     currentEvent._def.ui.backgroundColor = RessourcesAllocated(currentEvent);
     currentEvent._def.ui.borderColor = RessourcesAllocated(currentEvent);
+    console.log(currentEvent)
   });
 
   //affiche le calendar

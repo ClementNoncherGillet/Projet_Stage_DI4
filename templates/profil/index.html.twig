@@ -12,6 +12,8 @@
 {% endblock %}
 
 {% block javascripts %}
+{% if app.user == null %}<script type="text/javascript">document.location.href="/login"</script>
+{% endif %}
 		<script>
 		function inputGestion(e) {
 			let newPassword1 = document.getElementById('new_password').value;

@@ -1,6 +1,6 @@
 calendrier:
   path: /
-  controller: App\Controller\ConsultationPlanningController::consultationPlanningGet
+  controller: App\Controller\SecurityController::login
 
 add_user:
   path: /add_user

@@ -10,8 +10,13 @@
         <link rel="stylesheet" href="{{ asset('CSS/Global/IndexCrud.css') }}">
         <link rel="stylesheet" href="{{ asset('CSS/Global/NewCrud.css') }}">
         <script src="js/jquery-3.6.0.js"></script>
-        
         {% endblock %}
+
+{% block javascripts %} 
+
+        {% if app.user == null %}<script type="text/javascript">document.location.href="/login"</script>
+{% endif %}
+{% endblock %}
         
 {% block body %}
     <div class="index">    
