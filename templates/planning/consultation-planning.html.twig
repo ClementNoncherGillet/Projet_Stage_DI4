@@ -25,12 +25,8 @@
 		<div class="flex">
 		{% if app.user.roles[1] != 'Visiteur' %}
 			<button class="btn-calendar-edit" onclick="modify({% if app.user %}{{app.user.getId()}}{% else %}1{% endif %})">Modifier le planning</button>
-<<<<<<< Updated upstream
-			<select class="list-edit" id="displayList" onchange="changePlanning()">
-=======
 			{% endif %}
 			<select class="btn-calendar-edit" id="displayList" onchange="changePlanning()">
->>>>>>> Stashed changes
 				<option value="0" selected disabled>Changer l'affichage
 				</option>
 				<option value="parcours">Parcours</option>

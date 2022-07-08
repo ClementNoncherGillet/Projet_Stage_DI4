@@ -482,6 +482,10 @@ class __TwigTemplate_ace2f395aa8e5459dcb25b38140f9134337917fdae12791aac4b5feb097
         {% endfor %}
     </table>
 {% endmacro %}
+<<<<<<< Updated upstream
 ", "@WebProfiler/Collector/events.html.twig", "C:\\Users\\Clement\\Desktop\\Projet Stage DI4\\Projet_Stage_DI4\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\events.html.twig");
+=======
+", "@WebProfiler/Collector/events.html.twig", "C:\\Users\\Clement\\Desktop\\New projet stage\\Projet_Stage_DI4\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\events.html.twig");
+>>>>>>> Stashed changes
     }
 }

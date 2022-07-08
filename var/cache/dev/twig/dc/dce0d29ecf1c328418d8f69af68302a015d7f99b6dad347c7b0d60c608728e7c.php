@@ -413,6 +413,10 @@ class __TwigTemplate_fc2831012a6d686d77fbc354c88e08c7622432f368f679689233ca38f11
         </div>
     {% endfor %}
 {% endblock %}
+<<<<<<< Updated upstream
 ", "@Debug/Profiler/dump.html.twig", "C:\\Users\\Clement\\Desktop\\Projet Stage DI4\\Projet_Stage_DI4\\vendor\\symfony\\debug-bundle\\Resources\\views\\Profiler\\dump.html.twig");
+=======
+", "@Debug/Profiler/dump.html.twig", "C:\\Users\\Clement\\Desktop\\New projet stage\\Projet_Stage_DI4\\vendor\\symfony\\debug-bundle\\Resources\\views\\Profiler\\dump.html.twig");
+>>>>>>> Stashed changes
     }
 }

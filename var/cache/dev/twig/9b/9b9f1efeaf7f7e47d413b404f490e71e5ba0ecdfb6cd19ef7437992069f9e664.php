@@ -760,6 +760,10 @@ class __TwigTemplate_c83ba9bfc751d5ea8c801c468f49fcd76b48aae7d503c61bf4d2e47fa79
         </div>
     {% endfor %}
 {% endblock %}
+<<<<<<< Updated upstream
 ", "@WebProfiler/Collector/mailer.html.twig", "C:\\Users\\Clement\\Desktop\\Projet Stage DI4\\Projet_Stage_DI4\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\mailer.html.twig");
+=======
+", "@WebProfiler/Collector/mailer.html.twig", "C:\\Users\\Clement\\Desktop\\New projet stage\\Projet_Stage_DI4\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\mailer.html.twig");
+>>>>>>> Stashed changes
     }
 }

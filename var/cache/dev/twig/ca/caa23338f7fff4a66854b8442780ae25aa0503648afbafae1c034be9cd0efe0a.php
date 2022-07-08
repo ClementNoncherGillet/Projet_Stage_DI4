@@ -710,6 +710,10 @@ class __TwigTemplate_f4366cf84c59805bb28049a66a6af04d423ef902a4a3473d7079af14bbd
         <td class=\"font-normal\">{{ migration.execution_time|default('n/a') }}</td>
     </tr>
 {% endmacro %}
+<<<<<<< Updated upstream
 ", "@DoctrineMigrations/Collector/migrations.html.twig", "C:\\Users\\Clement\\Desktop\\Projet Stage DI4\\Projet_Stage_DI4\\vendor\\doctrine\\doctrine-migrations-bundle\\Resources\\views\\Collector\\migrations.html.twig");
+=======
+", "@DoctrineMigrations/Collector/migrations.html.twig", "C:\\Users\\Clement\\Desktop\\New projet stage\\Projet_Stage_DI4\\vendor\\doctrine\\doctrine-migrations-bundle\\Resources\\views\\Collector\\migrations.html.twig");
+>>>>>>> Stashed changes
     }
 }
