@@ -1,4 +1,3 @@
-
 // SLEECT ID : correspond a l'indice de l'activité à créée 0, 1, 2... 
 var SELECT_ID_EDIT = 0
 // NB ACTIVITY : nombre totale d'activité
@@ -58,7 +57,10 @@ function showEditModalForm(id, name, index){
     for(let j = 0; j < categoriesByResources[index].categories.length; j++) {
         NB_CATEGORY_EDIT = NB_CATEGORY_EDIT + 1;
         let newSelect = document.createElement('select');
-
+        let btnSubmit = document.getElementById('edit--submit')
+        newSelect.addEventListener('change', function() {
+                btnSubmit.disabled = true;
+          });
         //Boucle pour remplir toutes les categs dans chaque select
         for (let i = 0; i < selectSample.length; i++){
             let option = document.createElement('option')
@@ -122,7 +124,10 @@ function showEditModalFormMaterial(id, name, index){
    for(let j = 0; j < categoriesByResources[index].categories.length; j++) {
        NB_CATEGORY_EDIT = NB_CATEGORY_EDIT + 1;
        let newSelect = document.createElement('select');
-
+       let btnSubmit = document.getElementById('edit--submit')
+       newSelect.addEventListener('change', function() {
+               btnSubmit.disabled = true;
+         });
        //Boucle pour remplir toutes les categs dans chaque select
        for (let i = 0; i < selectSample.length; i++){
            let option = document.createElement('option')
@@ -164,61 +169,83 @@ function showEditModalFormMaterial(id, name, index){
  * Gestion d'ajout d'activité dans un parcours pour le formulaire d'édition
  */
 function edit__handleAddCategory() {
-
     let selectSample = document.getElementsByClassName('select-category-sample')[0];
-    let newSelect = document.createElement('select');
-    
-    //Boucle pour remplir toutes les categs dans chaque select
-    for (let i = 0; i < selectSample.length; i++){
-        let option = document.createElement('option')
-        option.value = selectSample.options[i].value;
-        option.text = selectSample.options[i].text;
-        newSelect.add(option);
-    } 
-    let categoriesContainer = document.getElementById('edit--categories-container');
-    let formField = document.createElement("div");
-    formField.setAttribute('class', 'form-field category-'+SELECT_ID_EDIT);
-    newSelect.style.border = 'none';
-    //Image pour delete une categ
-    let image = new Image();
-    image.src = 'img/delete.svg';
-    image.style.marginLeft = '30px';
-    image.setAttribute('id','img-'+SELECT_ID_EDIT)
-    image.setAttribute('onclick', 'edit__deleteSelect(this.id)')
-    formField.appendChild(newSelect);
-    formField.appendChild(image);
-    categoriesContainer.appendChild(formField);
-    SELECT_ID_EDIT = SELECT_ID_EDIT +1;
-    console.log(SELECT_ID_EDIT)
+    if(selectSample.length != 0) {
 
-    NB_CATEGORY_EDIT = NB_CATEGORY_EDIT +1;
-    document.getElementById('edit--nbcategory').value = NB_CATEGORY_EDIT;
+        let newSelect = document.createElement('select');
+        let btnSubmit = document.getElementById('edit--submit')
+        newSelect.addEventListener('change', function() {
+                btnSubmit.disabled = true;
+        });
+        
+        //Boucle pour remplir toutes les categs dans chaque select
+        for (let i = 0; i < selectSample.length; i++){
+            let option = document.createElement('option')
+            option.value = selectSample.options[i].value;
+            option.text = selectSample.options[i].text;
+            newSelect.add(option);
+        } 
+        let categoriesContainer = document.getElementById('edit--categories-container');
+        let formField = document.createElement("div");
+        formField.setAttribute('class', 'form-field category-'+SELECT_ID_EDIT);
+        newSelect.style.border = 'none';
+        //Image pour delete une categ
+        let image = new Image();
+        image.src = 'img/delete.svg';
+        image.style.marginLeft = '30px';
+        image.setAttribute('id','img-'+SELECT_ID_EDIT)
+        image.setAttribute('onclick', 'edit__deleteSelect(this.id)')
+        formField.appendChild(newSelect);
+        formField.appendChild(image);
+        categoriesContainer.appendChild(formField);
+        SELECT_ID_EDIT = SELECT_ID_EDIT +1;
+
+        NB_CATEGORY_EDIT = NB_CATEGORY_EDIT +1;
+        document.getElementById('edit--nbcategory').value = NB_CATEGORY_EDIT;
+    }
+    else {
+        alert('Il n\'y a pas de catégories existantes !')
+    }
 } 
 
 /**
  * Permet de verifier les champs et de leur donner un 'name' pour la requete
  */
  function edit__verifyChanges() {
-
     let formOk = true
     // D'abord on recupere la div qui contient toutes les activity
     let categoriesContainer = document.getElementById('edit--categories-container')
 
     // On parcours toutes nos activités 
     // On set leur 'name' et on verifie leurs contenus
-    console.log(NB_CATEGORY_EDIT);
     for (let i = 0; i < NB_CATEGORY_EDIT; i++) {
-        console.log(categoriesContainer)
         categoriesContainer.children[i].children[0].setAttribute('name', 'id-category-'+ Number(i))
-
+        categoriesContainer.children[i].children[0].setAttribute('id', 'id-category-'+ Number(i))          
     }
 
-    if (document.getElementById('edit--resourcename').value === '') {
-        formOk = false
+    let categoriesCheckDuplicata = []
+    for (let i = 0; i < NB_CATEGORY_EDIT; i++) {
+        let category = document.getElementById('id-category-'+ Number(i))
+        categoriesCheckDuplicata.push(category.value)
+    }
+    
+
+    if(hasDuplicates(categoriesCheckDuplicata) == false) {
+        if (document.getElementById('edit--resourcename').value === '') {
+            formOk = false
+            alert('Veuillez saisir un nom pour la ressource !')
+        }
+    
+        if (formOk) {
+            let btnSubmit = document.getElementById('edit--submit')
+            btnSubmit.disabled = false;
+        }
+    
+
+    
+    }
+    else {
+        alert("Il y a plusieurs fois la même catégorie !")
     }
 
-    if (formOk) {
-        let btnSubmit = document.getElementById('edit--submit')
-        btnSubmit.disabled = false;
-    }
 }

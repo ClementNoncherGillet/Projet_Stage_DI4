@@ -60,7 +60,12 @@ $('#edit-material-resource-category-modal').modal("show");
 function handleAddHumanCategory() {
 
     let selectSample = document.getElementsByClassName('select-category-sample')[0];
+    if(selectSample.length != 0) {
     let newSelect = document.createElement('select');
+    let btnSubmit = document.getElementById('submit')
+    newSelect.addEventListener('change', function() {
+            btnSubmit.disabled = true;
+      });
     
     //Boucle pour remplir toutes les categs dans chaque select
     for (let i = 0; i < selectSample.length; i++){
@@ -69,6 +74,7 @@ function handleAddHumanCategory() {
         option.text = selectSample.options[i].text;
         newSelect.add(option);
     }
+
     newSelect.setAttribute('name' , 'select-'+SELECT_ID);
     let categoriesContainer = document.getElementById('categories-container');
     let formField = document.createElement("div");
@@ -89,6 +95,11 @@ function handleAddHumanCategory() {
 
     NB_CATEGORY = NB_CATEGORY +1;
     nbCategory.value = NB_CATEGORY;
+}
+
+else {
+    alert('Il n\'y a pas de catégories existantes !')
+}
 
 }
 /** Permet de supprimer un select dans la liste déroulante */
@@ -120,21 +131,52 @@ function deleteSelect(id) {
     let formOk = true
     // D'abord on recupere la div qui contient toutes les activity
     let categoriesContainer = document.getElementById('categories-container')
-console.log(categoriesContainer);
+    
     // On parcours toutes nos activités 
     // On set leur 'name' et on verifie leurs contenus
     for (let i = 1; i <= NB_CATEGORY; i++) {
         categoriesContainer.children[i].children[0].setAttribute('name', 'id-category-'+ Number(i-1))
+        categoriesContainer.children[i].children[0].setAttribute('id', 'id-category-'+ Number(i-1))        
+    }
+    let categoriesCheckDuplicata = []
+
+    for (let i = 1; i < NB_CATEGORY+1; i++) {
+        let category = document.getElementById('id-category-'+ Number(i-1))
+        categoriesCheckDuplicata.push(category.value);
     }
 
-    if (document.getElementById('resourcename').value === '') {
-        formOk = false
+
+    
+    if(hasDuplicates(categoriesCheckDuplicata) == false) {
+        if (document.getElementById('resourcename').value === '') {
+            formOk = false
+            alert('Veuillez saisir un nom pour la ressource !')
+        }
+    
+        if (formOk) {
+            let btnSubmit = document.getElementById('submit')
+            btnSubmit.disabled = false;
+        }
     }
 
-    if (formOk) {
-        let btnSubmit = document.getElementById('submit')
-        btnSubmit.disabled = false;
+    else {
+        alert("Il y a plusieurs fois la même catégorie !")
     }
+
+    
+    
+}
+
+function hasDuplicates(array) {
+    var valuesSoFar = Object.create(null);
+    for (var i = 0; i < array.length; ++i) {
+        var value = array[i];
+        if (value in valuesSoFar) {
+            return true;
+        }
+        valuesSoFar[value] = true;
+    }
+    return false;
 }
 
 function hideNewModalForm() {
