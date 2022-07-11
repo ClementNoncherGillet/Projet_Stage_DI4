@@ -35,6 +35,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $password;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=UserSettings::class)
+     */
+    private $usersettings;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -79,6 +84,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getUsersettings(): ?int
+    {
+        return $this->usersettings;
+    }
+
+    public function setUsersettings(int $usersettings): self
+    {
+        $this->usersettings = $usersettings;
 
         return $this;
     }

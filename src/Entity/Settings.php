@@ -20,38 +20,38 @@ class Settings
     /**
      * @ORM\Column(type="integer")
      */
-    private $timer;
+    private $alertmodificationtimer;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $unittime;
+    private $multiplicatorzoom;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTimer(): ?int
+    public function getAlertmodificationtimer(): ?int
     {
-        return $this->timer;
+        return $this->alertmodificationtimer;
     }
 
-    public function setTimer(int $timer): self
+    public function setAlertmodificationtimer(int $alertmodificationtimer): self
     {
-        $this->timer = $timer;
+        $this->alertmodificationtimer = $alertmodificationtimer;
 
         return $this;
     }
 
-    public function getUnittime(): ?int
+    public function getMultiplicatorzoom(): ?int
     {
-        return $this->unittime;
+        return $this->multiplicatorzoom;
     }
 
-    public function setUnittime(int $unittime): self
+    public function setMultiplicatorzoom(int $multiplicatorzoom): self
     {
-        $this->unittime = $unittime;
+        $this->multiplicatorzoom = $multiplicatorzoom;
 
         return $this;
     }
